@@ -1,0 +1,35 @@
+services:
+  service-one:
+    build:
+      context: ./service-one
+      args:
+        API_PORT: ${API_PORT_ONE}
+    container_name: ${CONTAINER_ONE}
+    volumes:
+      - ./service-one:/usr/src/app
+      - ./.env:/usr/src/app/.env
+      - /usr/src/app/node_modules # Ensure `/usr/src/app/node_modules` is always empty in the container
+    restart: unless-stopped
+    ports:
+      - '${API_PORT_ONE:-3001}:3001'
+    environment:
+      FASTIFY_PORT: ${API_PORT_ONE}
+  service-two:
+    build:
+      context: ./service-two
+      args:
+        API_PORT: ${API_PORT_TWO}
+    container_name: ${CONTAINER_TWO}
+    volumes:
+      - ./service-two:/usr/src/app
+      - ./.env:/usr/src/app/.env
+      - /usr/src/app/node_modules # Ensure `/usr/src/app/node_modules` is always empty in the container
+    restart: unless-stopped
+    ports:
+      - '${API_PORT_TWO:-3002}:3002'
+    environment:
+      FASTIFY_PORT: ${API_PORT_TWO}
+networks:
+  default:
+    name: nginx-proxy
+    external: true

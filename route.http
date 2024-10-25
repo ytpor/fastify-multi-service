@@ -1,0 +1,16 @@
+GET http://localhost:3001 HTTP/1.1
+
+###
+GET http://localhost:3001/dummy HTTP/1.1
+
+###
+GET http://localhost:3001/external HTTP/1.1
+
+###
+GET http://localhost:3002 HTTP/1.1
+
+###
+GET http://localhost:3002/dummy HTTP/1.1
+
+###
+GET http://localhost:3002/external HTTP/1.1
